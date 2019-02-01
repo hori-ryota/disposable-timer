@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width" />
+<title>timer</title>
+<style type="text/css">
+@import url(//fonts.googleapis.com/earlyaccess/notosansjapanese.css);
+
+body {
+    background-color: rgba(24, 24, 24, .7);
+    color: #fff;
+    -webkit-app-region: drag;
+    -webkit-user-select: none;
+}
+
+p
+{
+    text-align: center;
+    font-size: 5em;
+    width: 100%;
+    font-family: 'Noto Sans Japanese', serif;
+}
+</style>
+</head>
+<body>
+<p id="text" style="transform: rotateY(180deg);">なんかテキスト</p>
+<p id="timer" style="transform: rotateY(180deg);"></p>
+<script type="text/javascript">
+(function(d){
+  var targetTimeMSec = 15 * 60 * 1000;
+
+  var timer = d.getElementById('timer');
+  var startDate = new Date()
+
+  setInterval(function(){
+    var now = new Date()
+    var remainingMSec = targetTimeMSec - (now.getTime() - startDate.getTime());
+    if (remainingMSec <= 0){
+      timer.textContent = "Finish";
+      return;
+    }
+
+    var remainingSec = Math.floor(remainingMSec / 1000);
+    var viewMinute = Math.floor(remainingSec / 60);
+    var viewSec = remainingSec - (viewMinute * 60);
+
+    var out =
+      ('0' + viewMinute).slice(-2) +
+      ':' +
+      ('0' + viewSec).slice(-2);
+
+    timer.textContent = out;
+  }, 21);
+}(document));
+</script>
+</body>
+</html>
